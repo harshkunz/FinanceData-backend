@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 import { createUserService } from "../services/admin.users.service";
-import { CreateUserBody, CreateUserResponse } from "../types/admin.users.types";
+import { 
+    CreateUserBody, 
+    CreateUserResponse,
+    ErrorResponse
+} from "../types/admin.users.types";
 import { handlePrismaError } from "../utils/prisma.error"
 
 
 type ApiResponse<T> = 
     | { success: true; data: T } 
-    | { success: false; msg: string };
+    | ErrorResponse
 
 
 export const createUser = async (

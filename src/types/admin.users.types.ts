@@ -23,3 +23,12 @@ export type CreateUserResponse = {
   role: string;
   status: Status
 }
+
+export type ErrorResponse = {
+  success: false;
+  msg?: string;
+  errors?: {
+    field: string;
+    message: string;
+  }[];
+};

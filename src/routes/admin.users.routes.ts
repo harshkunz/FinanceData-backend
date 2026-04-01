@@ -15,9 +15,9 @@ const router = Router();
 
 router.post(
     "/users/create", 
-    //roleAuthorize("ADMIN"),
+    roleAuthorize("ADMIN"),
     createUserValidation,
-    //validate,
+    validate,
     createUser
 );
 
