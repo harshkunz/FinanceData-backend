@@ -1,11 +1,24 @@
 import express from "express";
 import ENV  from './config/env';
 
+
+import adminUsersRoutes from "./routes/admin.users.routes";
+
+
 const app = express();
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+app.use("/admin", adminUsersRoutes);
+
 
 app.get("/", (req, res) => {
     res.json({ status: "ok" })
 })
+
 
 const PORT = ENV.PORT;
 
