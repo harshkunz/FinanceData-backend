@@ -14,3 +14,15 @@ export const filterValidation = [
   query("startDate").optional().isISO8601(),
   query("endDate").optional().isISO8601(),
 ];
+
+export const paginationValidation = [
+  query("page")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Page must be >= 1"),
+
+  query("limit")
+    .optional()
+    .isInt({ min: 1, max: 50 })
+    .withMessage("Limit must be between 1 & 50")
+];

@@ -4,7 +4,8 @@ import {
   getTransactionTotalType,
   getRecent,
   getTrends,
-  getFilteredRecords
+  getFilteredRecords,
+  getTransactions
 } from "../controllers/dashboard.controller";
 
 import { roleAuthorize } from "../middlewares/role.authorize";
@@ -13,7 +14,8 @@ import { authenticate } from '../middlewares/auth.middleware';
 
 import {
     trendValidation,
-    filterValidation
+    filterValidation,
+    paginationValidation
 } from "../validations/dashboard.validation";
 
 
@@ -50,7 +52,18 @@ router.get(
     getTrends
 )
 
-// Filter Routes
+// Pagination
+
+router.get(
+    "/transactions",
+    authenticate,
+    roleAuthorize("ADMIN", "ANALYST", "VIEWER"),
+    paginationValidation,
+    validate,
+    getTransactions
+)
+
+// Filtering
 
 router.get(
     "/filter/records",

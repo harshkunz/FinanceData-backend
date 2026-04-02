@@ -78,3 +78,20 @@ export interface FilterQuery {
   startDate?: string;
   endDate?: string;
 }
+
+export interface PaginationQuery {
+  page?: string;
+  limit?: string;
+}
+
+export interface PaginationMeta {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface PaginationResponse {
+  data: TransactionResponse[],
+  meta: PaginationMeta
+}

@@ -4,7 +4,8 @@ import {
     getTransactionTotalTypeService,
     getRecentService,
     getTrendsService,
-    getFilteredRecordsService
+    getFilteredRecordsService,
+    getTransactionsService
 } from "../services/dashboard.service";
 
 import {} from "../types/admin.users.types";
@@ -14,6 +15,8 @@ import {
     TotalByType,
     TransactionResponse,
     FilterQuery,
+    PaginationQuery,
+    PaginationResponse,
     ErrorResponse
 } from "../types/transactions.types";
 
@@ -142,4 +145,36 @@ export const getFilteredRecords = async (
         });
     }
 };
+
+
+export const getTransactions = async (
+    req: Request<{}, {}, {}, PaginationQuery>,
+    res: Response<ApiResponse<PaginationResponse>>
+): Promise<Response> => {
+    try {
+        const user = req.user!;
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+
+        const data: PaginationResponse = await getTransactionsService(
+            user.id,
+            user.role,
+            page,
+            limit
+        )
+
+        return res.status(200).json({
+            success: true,
+            data: data
+        });
+
+    } catch (error: unknown) {
+        // Prisma Error Handler
+
+        return res.status(500).json({
+            success: false,
+            msg: "Failed to fetch transactions"
+        });
+    }
+}
 

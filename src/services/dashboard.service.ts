@@ -4,7 +4,7 @@ import {
     GroupedType,
     TransactionResponse,
     TrandResponse,
-    FilterQuery
+    FilterQuery,
 } from "../types/transactions.types";
 
 
@@ -132,3 +132,34 @@ export const getFilteredRecordsService = async (
 
     return result;
 };
+
+export const getTransactionsService = async (
+    userId: number,
+    role: Role,
+    page: number,
+    limit: number
+) => {
+    const where = getWhere(userId, role);
+    const skip = (page - 1) * limit;
+    
+    const [txs, total]: [TransactionResponse[], number]  = await Promise.all([
+        db.transaction.findMany({
+            where,
+            skip,
+            take: limit,
+            orderBy: { createdAt: "desc" }
+        }),
+
+        db.transaction.count({ where })
+    ])
+
+    return {
+        data: txs,
+        meta: {
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit)
+        }
+    };
+}
