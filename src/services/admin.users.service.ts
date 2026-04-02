@@ -1,17 +1,19 @@
 import { db } from "../config/db";
 import { CreateUserBody, Role, Status } from "../types/admin.users.types";
+import bcrypt from "bcrypt";
 
 
 export const createUserService = async (data: CreateUserBody) => {
     const { name, email, password, role } = data;
 
     // Password Security
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await db.user.create({
         data: {
             name,
             email,
-            password: password,
+            password: hashedPassword,
             role
         }
     });

@@ -7,6 +7,7 @@ import {
 
 import { roleAuthorize } from "../middlewares/role.authorize";
 import { validate } from "../middlewares/validate";
+import { authenticate } from '../middlewares/auth.middleware';
 
 import {
   createTransactionValidation,
@@ -20,6 +21,7 @@ const router = Router();
 
 router.post(
   "/",
+  authenticate,
   roleAuthorize("ADMIN"),
   createTransactionValidation,
   validate,
@@ -28,6 +30,7 @@ router.post(
 
 router.patch(
   "/:id",
+  authenticate,
   roleAuthorize("ADMIN"),
   updateTransactionValidation,
   validate,
@@ -36,6 +39,7 @@ router.patch(
 
 router.delete(
   "/:id",
+  authenticate,
   roleAuthorize("ADMIN"),
   deleteTransactionValidation,
   validate,
