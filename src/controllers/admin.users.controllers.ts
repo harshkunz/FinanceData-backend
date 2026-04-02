@@ -43,7 +43,7 @@ export const createUser = async (
         });
 
     } catch (error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "users", res);
         if(handle) return handle;
 
         return res.status(500).json({
@@ -73,7 +73,7 @@ export const updateUserRole = async (
         })
 
     } catch(error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "users", res);
         if (handle) return handle;
 
         return res.status(500).json({
@@ -103,7 +103,7 @@ export const updateUserStatus = async (
         })
 
     } catch (error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "users", res);
         if (handle) return handle;
 
         return res.status(500).json({
@@ -131,7 +131,7 @@ export const deleteUser = async (
         })
 
     } catch (error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "users", res);
         if (handle) return handle;
 
         return res.status(500).json({

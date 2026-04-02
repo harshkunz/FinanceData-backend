@@ -44,7 +44,7 @@ export const createTransaction = async (
         });
 
     } catch (error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "transactions", res);
         if(handle) return handle;
 
         return res.status(500).json({
@@ -68,7 +68,7 @@ export const updateTransaction = async (
         });
 
     } catch (error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "transactions", res);
         if(handle) return handle;
 
         return res.status(500).json({
@@ -95,7 +95,7 @@ export const deleteTransaction = async (
         })
 
     } catch (error: unknown) {
-        const handle = handlePrismaError(error, res);
+        const handle = handlePrismaError(error, "transactions", res);
         if (handle) return handle;
 
         return res.status(500).json({
