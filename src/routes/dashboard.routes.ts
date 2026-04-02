@@ -3,14 +3,16 @@ import {
   getBalance,
   getTransactionTotalType,
   getRecent,
-  getTrends
+  getTrends,
+  getFilteredRecords
 } from "../controllers/dashboard.controller";
 
 import { roleAuthorize } from "../middlewares/role.authorize";
 import { validate } from "../middlewares/validate";
 
 import {
-    trendValidation
+    trendValidation,
+    filterValidation
 } from "../validations/dashboard.validation";
 
 
@@ -42,6 +44,17 @@ router.get(
     validate,
     getTrends
 )
+
+// Filter Routes
+
+router.get(
+    "/filter/records",
+    roleAuthorize("ADMIN", "ANALYST"),
+    filterValidation,
+    validate,
+    getFilteredRecords
+)
+
 
 export default router;
 

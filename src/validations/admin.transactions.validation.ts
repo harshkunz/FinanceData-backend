@@ -10,10 +10,10 @@ export const createTransactionValidation = [
 
 export const updateTransactionValidation = [
   param("id").isInt(),
-  body("amount")?.isFloat(),
-  body("type")?.isIn(["INCOME", "EXPENSE"]),
-  body("categoryName")?.isLength({min: 1, max:20 }).toUpperCase(),
-  body("date")?.isISO8601()
+  body("amount").optional().isFloat(),
+  body("type").optional().isIn(["INCOME", "EXPENSE"]),
+  body("categoryName").optional().isLength({min: 1, max:20 }).toUpperCase(),
+  body("date").optional().isISO8601()
 ];
 
 export const deleteTransactionValidation = [

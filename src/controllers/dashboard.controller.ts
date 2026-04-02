@@ -4,6 +4,7 @@ import {
     getTransactionTotalTypeService,
     getRecentService,
     getTrendsService,
+    getFilteredRecordsService
 } from "../services/dashboard.service";
 
 import {} from "../types/admin.users.types";
@@ -12,6 +13,7 @@ import {
     BalanceResponse,
     TotalByType,
     TransactionResponse,
+    FilterQuery,
     ErrorResponse
 } from "../types/transactions.types";
 
@@ -116,4 +118,28 @@ export const getTrends = async (
     }
 }
 
+
+export const getFilteredRecords = async (
+    req: Request<{}, {}, {}, FilterQuery>,
+    res: Response<ApiResponse<TransactionResponse[]>>
+): Promise<Response> => {
+    try {
+        const query = req.query;
+
+        const data: TransactionResponse[] = await getFilteredRecordsService(query);
+
+        return res.status(200).json({
+            success: true,
+            data: data
+        });
+
+    } catch (error: unknown) {
+        // Prisma Error Handler
+
+        return res.status(500).json({
+            success: false,
+            msg: "Failed to fetch filtered records"
+        });
+    }
+};
 

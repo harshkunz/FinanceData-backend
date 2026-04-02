@@ -4,6 +4,7 @@ import {
     GroupedType,
     TransactionResponse,
     TrandResponse,
+    FilterQuery
 } from "../types/transactions.types";
 
 
@@ -108,4 +109,26 @@ export const getTrendsService = async (
     });
 
     return result;
-}
+};
+
+
+export const getFilteredRecordsService = async (
+  query: FilterQuery
+) => {
+    const { type, amount, categoryName, startDate, endDate } = query;
+    
+    const result: TrandResponse[] = await db.transaction.findMany({
+        where: {
+            type,
+            amount,
+            categoryName,
+            date: {
+                gte: startDate ? new Date(startDate) : undefined,
+                lte: endDate ? new Date(endDate) : undefined
+            }
+        },
+        orderBy: { createdAt: "desc" }
+    })
+
+    return result;
+};

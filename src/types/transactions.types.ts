@@ -70,3 +70,11 @@ export interface TrandResponse {
   categoryName?: string;
   date: Date;
 }
+
+export interface FilterQuery {
+  type?: "INCOME" | "EXPENSE";
+  amount?: number;
+  categoryName?: string;
+  startDate?: string;
+  endDate?: string;
+}
