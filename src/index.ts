@@ -4,6 +4,7 @@ import ENV  from './config/env';
 
 import adminUsersRoutes from "./routes/admin.users.routes";
 import adminTransactionsRoutes from "./routes/admin.transactions.routes";
+import dashboardRoutes from "./routes/dashboard.routes";
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/admin", adminUsersRoutes);
 app.use("admin/transactions", adminTransactionsRoutes);
+app.use("/dashboard/transactions", dashboardRoutes);
 
 
 app.get("/", (req, res) => {

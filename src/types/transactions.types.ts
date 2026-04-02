@@ -29,6 +29,7 @@ export interface UpdateTransactionBody {
 
 export interface TransactionResponse {
   id: number;
+  userId?: number;
   amount?: number;
   type?: TransactionType;
   categoryName?: string;
@@ -45,3 +46,27 @@ export type ErrorResponse = {
     message: string;
   }[];
 };
+
+export interface BalanceResponse {
+  totalIncome: number;
+  totalExpense: number;
+  netBalance: number;
+};
+
+export type GroupedType = {
+  type: TransactionType;
+  _sum: { amount: number | null };
+};
+
+export interface TotalByType {
+  type: TransactionType,
+  amount: number
+}
+
+export interface TrandResponse {
+  id: number;
+  amount: number;
+  type: TransactionType;
+  categoryName?: string;
+  date: Date;
+}
