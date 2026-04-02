@@ -1,6 +1,6 @@
 import express from "express";
 import ENV  from './config/env';
-
+import { globalLimiter } from "./middlewares/rateLimiter";
 
 import adminUsersRoutes from "./routes/admin.users.routes";
 import adminTransactionsRoutes from "./routes/admin.transactions.routes";
@@ -10,9 +10,9 @@ import authRoutes from "./routes/auth.routes";
 
 const app = express();
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(globalLimiter);
 
 
 app.use("/admin", adminUsersRoutes);
