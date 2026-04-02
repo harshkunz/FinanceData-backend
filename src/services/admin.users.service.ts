@@ -1,5 +1,6 @@
 import { db } from "../config/db";
-import { CreateUserBody } from "../types/admin.users.types";
+import { CreateUserBody, Role, Status } from "../types/admin.users.types";
+
 
 export const createUserService = async (data: CreateUserBody) => {
     const { name, email, password, role } = data;
@@ -17,3 +18,30 @@ export const createUserService = async (data: CreateUserBody) => {
 
     return user;
 }
+
+export const updateUserRoleService = async (id: number, role: Role) => {
+    const user = await db.user.update({
+        where: { id },
+        data: { role }
+    });
+
+    return user;
+}
+
+export const updateUserStatusService = async (id: number, status: Status) => {
+    const user = await db.user.update({
+        where: { id },
+        data: { status }
+    });
+
+    return user;
+}
+
+export const deleteUserService = async (id: number) => {
+    await db.user.delete({
+        where: { id }
+    });
+
+    return;
+};
+

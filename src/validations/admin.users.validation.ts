@@ -6,3 +6,17 @@ export const createUserValidation = [
   body("password").isLength({ min: 4 }),
   body("role").isIn(["ADMIN", "ANALYST", "VIEWER"]),
 ];
+
+export const updateRoleValidation = [
+  param("id").isInt(),
+  body("role").isIn(["ADMIN", "ANALYST", "VIEWER"]),
+];
+
+export const updateStatusValidation = [
+  param("id").isInt(),
+  body("status").isIn(["ACTIVE", "INACTIVE"]),
+];
+
+export const deleteUserValidation = [
+  param("id").isInt(),
+];
