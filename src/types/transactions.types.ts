@@ -19,6 +19,24 @@ export interface CreateTransactionResponse {
   notes?: string | null;
 }
 
+export interface UpdateTransactionBody {
+  amount?: number;
+  type?: TransactionType;
+  categoryName?: string;
+  date?: Date;
+  notes?: string | null;
+}
+
+export interface TransactionResponse {
+  id: number;
+  amount?: number;
+  type?: TransactionType;
+  categoryName?: string;
+  date?: Date;
+  notes?: string | null;
+  msg?: string
+}
+
 export type ErrorResponse = {
   success: false;
   msg?: string;

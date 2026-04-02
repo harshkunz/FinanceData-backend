@@ -1,13 +1,17 @@
 import { Router } from 'express';
 import {
-  createTransaction
+  createTransaction,
+  updateTransaction,
+  deleteTransaction
 } from "../controllers/admin.transactions.controller";
 
 import { roleAuthorize } from "../middlewares/role.authorize";
 import { validate } from "../middlewares/validate";
 
 import {
-  createTransactionValidation
+  createTransactionValidation,
+  updateTransactionValidation,
+  deleteTransactionValidation
 } from "../validations/admin.transactions.validation";
 
 
@@ -20,6 +24,22 @@ router.post(
   createTransactionValidation,
   validate,
   createTransaction
+);
+
+router.patch(
+  "/:id",
+  roleAuthorize("ADMIN"),
+  updateTransactionValidation,
+  validate,
+  updateTransaction
+);
+
+router.delete(
+  "/:id",
+  roleAuthorize("ADMIN"),
+  deleteTransactionValidation,
+  validate,
+  deleteTransaction
 );
 
 export default router;
