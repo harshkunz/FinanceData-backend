@@ -148,19 +148,21 @@ export const getFilteredRecords = async (
 
 
 export const getTransactions = async (
-    req: Request<{}, {}, {}, PaginationQuery>,
+    req: Request<{}, {}, {}, PaginationQuery & { categoryName?: string }>,
     res: Response<ApiResponse<PaginationResponse>>
 ): Promise<Response> => {
     try {
         const user = req.user!;
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
+        const categoryName = req.query.categoryName;
 
         const data: PaginationResponse = await getTransactionsService(
             user.id,
             user.role,
             page,
-            limit
+            limit,
+            categoryName
         )
 
         return res.status(200).json({

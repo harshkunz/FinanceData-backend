@@ -82,6 +82,7 @@ export interface FilterQuery {
 export interface PaginationQuery {
   page?: string;
   limit?: string;
+  category?: string;
 }
 
 export interface PaginationMeta {

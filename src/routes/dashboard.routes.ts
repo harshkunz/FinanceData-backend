@@ -74,6 +74,17 @@ router.get(
     getFilteredRecords
 )
 
+// Searching
+
+router.get(
+    "/search/records",
+    authenticate,
+    roleAuthorize("ADMIN", "ANALYST"),
+    paginationValidation,
+    validate,
+    getTransactions
+)
+
 
 export default router;
 

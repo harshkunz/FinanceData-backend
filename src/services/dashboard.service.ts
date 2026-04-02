@@ -137,10 +137,21 @@ export const getTransactionsService = async (
     userId: number,
     role: Role,
     page: number,
-    limit: number
+    limit: number,
+    categoryName?: string
 ) => {
-    const where = getWhere(userId, role);
+    const baseWhere = getWhere(userId, role);
     const skip = (page - 1) * limit;
+
+    const where = {
+        ...baseWhere,
+        ...(categoryName && {
+            categoryName: {
+                contains: categoryName,
+                mode: "insensitive"
+            }
+        })
+    }
     
     const [txs, total]: [TransactionResponse[], number]  = await Promise.all([
         db.transaction.findMany({
@@ -163,3 +174,4 @@ export const getTransactionsService = async (
         }
     };
 }
+

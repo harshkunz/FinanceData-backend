@@ -24,5 +24,11 @@ export const paginationValidation = [
   query("limit")
     .optional()
     .isInt({ min: 1, max: 50 })
-    .withMessage("Limit must be between 1 & 50")
+    .withMessage("Limit must be between 1 & 50"),
+
+  query("categoryName")
+    .optional()
+    .isString().withMessage("must be string")
+    .trim()
+    .isLength({ min: 3 }).withMessage("cannot be empty")
 ];
