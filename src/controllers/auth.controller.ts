@@ -6,6 +6,7 @@ import {
 } from "../config/jwt";
 
 import { loginService } from "../services/auth.service";
+import { addToBlacklist } from "../utils/blacklist.token";
 import { 
     LoginBody,
     LoginResponse,
@@ -96,6 +97,7 @@ export const logout = async (
 ): Promise<Response> => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
+        if(token) addToBlacklist(token);
         
         return res.status(200).json({
             success: true,
