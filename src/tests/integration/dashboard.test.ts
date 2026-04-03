@@ -2,16 +2,18 @@ import request from "supertest";
 import express from "express";
 import router from "../../routes/dashboard.routes";
 
-const app = express();
-app.use(express.json());
-
-
-app.use(
-    (req: any, res, next) => {
+jest.mock("../../middlewares/auth.middleware", () => ({
+    authenticate: (req: any, res: any, next: any) => {
         req.user = { id: 1, role: "ADMIN" };
         next();
+    },
+    roleAuthorize: () => (req: any, res: any, next: any) => {
+        next();
     }
-)
+}));
+
+const app = express();
+app.use(express.json());
 
 app.use("/dashboard", router);
 

@@ -17,7 +17,7 @@ describe("getTransactionsService", () => {
                 { id: 1, amount: 100 },
                 { id: 2, amount: 200 },
                 { id: 3, amount: 300 }
-            ])
+            ]);
 
         (db.transaction.count as jest.Mock).mockResolvedValue(5);
 

@@ -9,7 +9,10 @@ export const trendValidation = [
 
 export const filterValidation = [
   query("type").optional().isIn(["INCOME", "EXPENSE"]),
-  query("amount").optional().isFloat(),
+  query("amount")
+    .optional()
+    .isFloat().withMessage("Amount must be a number")
+    .toFloat(),
   query("categoryName").optional().isString(),
   query("startDate").optional().isISO8601(),
   query("endDate").optional().isISO8601(),

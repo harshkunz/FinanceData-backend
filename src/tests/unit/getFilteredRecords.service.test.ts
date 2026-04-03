@@ -13,9 +13,7 @@ describe("getFilteredRecordsService", () => {
     it("should return filtered records", async () => {
         (db.transaction.findMany as jest.Mock)
             .mockResolvedValue([
-                { id: 1, type: "INCOME", amount: 500 },
-                { id: 2, type: "EXPENSE", amount: 1000 },
-                { id: 3, type: "INCOME", amount: 1500 }
+                { id: 1, type: "EXPENSE", amount: 1000 },
             ])
 
         const result = await getFilteredRecordsService({
