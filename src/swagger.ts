@@ -12,7 +12,10 @@ const options: swaggerJsdoc.Options = {
     },
 
     servers: [
-      { url: `http://localhost:${ENV.PORT}/api` }
+        {  url: ENV.NODE_ENV === "production" 
+            ? "https://financedata-backend.onrender.com/api"
+            : `http://localhost:${ENV.PORT}/api` 
+        }
     ],
 
     tags: [

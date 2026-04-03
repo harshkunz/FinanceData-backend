@@ -96,6 +96,7 @@ npm run test:watch  # auto rerun
 Swagger UI available at:
 
 ```
+https://financedata-backend.onrender.com/api-docs/
 http://localhost:7000/api-docs
 ```
 
