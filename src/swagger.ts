@@ -239,10 +239,55 @@ const options: swaggerJsdoc.Options = {
                     },
                 },
             },
-        }
+        },
 
+        responses: {
+            LoginSuccess: {
+                description: "Login successful",
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/LoginResponse",
+                        },
+                    },
+                },
+            },
+
+            BadRequest: {
+                description: "Bad request",
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/ErrorResponse",
+                        },
+                    },
+                },
+            },
+
+            Unauthorized: {
+                description: "Unauthorized",
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/ErrorResponse",
+                        },
+                    },
+                },
+            },
+
+            ServerError: {
+                description: "Internal server error",
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/ErrorResponse",
+                        },
+                    },
+                },
+            },
+        },
+        
     }
-
   },
 
   apis: ["./src/routes/*.ts"],

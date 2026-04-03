@@ -39,6 +39,6 @@
     "skipLibCheck": true,
   },
 
-  "include": ["src/**/*.ts", "src/types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts", "src/jest.setup.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,7 @@
 
 afterAll(async () => {
   try {
-    const { db } = require("./src/config/db");
+    const { db } = require("./config/db");
 
     if (db?.$disconnect) {
       await db.$disconnect();
