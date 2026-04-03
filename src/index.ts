@@ -1,5 +1,9 @@
 import express from "express";
 import ENV  from './config/env';
+
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./swagger";
+
 import { globalLimiter } from "./middlewares/rateLimiter";
 import { db } from "./config/db";
 
@@ -16,10 +20,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(globalLimiter);
 
 
-app.use("/admin", adminUsersRoutes);
-app.use("/admin/transactions", adminTransactionsRoutes);
-app.use("/dashboard/transactions", dashboardRoutes);
-app.use("/auth", authRoutes);
+app.use(
+    "/api-docs", 
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerSpec, { explorer: true })
+);
+
+
+app.use("/api/admin", adminUsersRoutes);
+app.use("/api/admin/transactions", adminTransactionsRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/auth", authRoutes);
 
 
 app.get("/", (req, res) => {
