@@ -14,7 +14,8 @@
     //"declaration": true,
     //"declarationMap": true,
     "incremental": true,
-    "types": ["node", "jest"],
+    "types": ["node", "jest", "express"],
+    "typeRoots": ["./node_modules/@types", "./src/types"],
 
     // Stricter Typechecking Options
     //"noUncheckedIndexedAccess": true,
@@ -38,6 +39,6 @@
     "skipLibCheck": true,
   },
 
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

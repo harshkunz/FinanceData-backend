@@ -1,12 +1,12 @@
 import { Response } from "express";
-import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 export const handlePrismaError = (
   error: unknown,
   key: string,
   res: Response
 ): Response | null => {
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  if (error instanceof PrismaClientKnownRequestError) {
     
     if (key === "users" && error.code === "P2002") {
       return res.status(400).json({

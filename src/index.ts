@@ -1,3 +1,5 @@
+import "./types/express";
+
 import express from "express";
 import ENV  from './config/env';
 

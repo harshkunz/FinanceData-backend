@@ -1,7 +1,7 @@
 import { db } from "../config/db";
+import { Prisma } from "../generated/prisma/client";
 import { Role } from "../types/admin.users.types";
 import { 
-    GroupedType,
     TransactionResponse,
     TrandResponse,
     FilterQuery,
@@ -9,7 +9,7 @@ import {
 
 
 // where command
-const getWhere = (userId: number, role: Role) => {
+const getWhere = (userId: number, role: Role): Prisma.TransactionWhereInput => {
     return role === "VIEWER" ? { userId } : {};
 }
 
@@ -48,7 +48,7 @@ export const getTransactionTotalTypeService = async (
 ) => {
     const where = getWhere(userId, role);
 
-    const result: GroupedType[] = await db.transaction.groupBy({
+    const result = await db.transaction.groupBy({
         by: ["type"],
         where,
         _sum: { amount: true }
@@ -83,12 +83,8 @@ export const getTrendsService = async (
     const where = getWhere(userId, role);
 
     const txs: TrandResponse[] = await db.transaction.findMany({
-        where: {
-            ...where,
-            date: { not: null },
-            type: { not: null }
-        },
-        select: { amount: true, type: true, date: true }
+        where,
+        select: { id: true, amount: true, type: true, date: true }
     })
 
     const result: Record<string, number> = {};
@@ -116,17 +112,24 @@ export const getFilteredRecordsService = async (
   query: FilterQuery
 ) => {
     const { type, amount, categoryName, startDate, endDate } = query;
+
+    const where: Prisma.TransactionWhereInput = {
+        ...(type && { type }),
+        ...(amount !== undefined && { amount }),
+        ...(categoryName && {
+            categoryName: {
+                contains: categoryName,
+                mode: Prisma.QueryMode.insensitive
+            }
+        }),
+        date: {
+            gte: startDate ? new Date(startDate) : undefined,
+            lte: endDate ? new Date(endDate) : undefined
+        }
+    };
     
     const result: TrandResponse[] = await db.transaction.findMany({
-        where: {
-            type,
-            amount,
-            categoryName,
-            date: {
-                gte: startDate ? new Date(startDate) : undefined,
-                lte: endDate ? new Date(endDate) : undefined
-            }
-        },
+        where,
         orderBy: { createdAt: "desc" }
     })
 
@@ -143,12 +146,12 @@ export const getTransactionsService = async (
     const baseWhere = getWhere(userId, role);
     const skip = (page - 1) * limit;
 
-    const where = {
+    const where: Prisma.TransactionWhereInput = {
         ...baseWhere,
         ...(categoryName && {
             categoryName: {
                 contains: categoryName,
-                mode: "insensitive"
+                mode: Prisma.QueryMode.insensitive
             }
         })
     }
