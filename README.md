@@ -145,22 +145,18 @@ http://localhost:7000/api-docs
 * Used **JWT (stateless authentication)** instead of sessions
   → improves scalability but requires token handling on client side
 
-  *
 
 * Stored `categoryName` directly in transactions
   → simplifies queries but introduces duplication (denormalization)
 
-  *
 
 * Used **express-validator**
   → easy to integrate but less powerful than schema-based validators like Zod
 
-  *
 
 * No caching layer (e.g., Redis)
   → simpler implementation but dashboard APIs can be optimized further
 
-  *
 
 * Decent Error handling
   → readable code but can be improved with centralized logging & monitoring
@@ -172,7 +168,6 @@ http://localhost:7000/api-docs
 * Followed **layered architecture**
   (routes → controllers → services → database) for scalability
 
-  *
 
 * Designed **reusable response structure** across all APIs:
 
@@ -186,22 +181,18 @@ http://localhost:7000/api-docs
 * Built **dashboard-focused APIs**
   → includes aggregation, trends, filtering, and pagination
 
-  *
 
 * Added **rate limiting middleware**
   → protection & limiting
 
-  *
 
 * Used **Prisma ORM**
   → type-safe queries and better maintainability
 
-  *
 
 * Structured APIs with clear prefixes (`/api/auth`, `/api/admin`, `/api/dashboard`)
   → improves readability and scalability
 
-  *
 
 * Integrated **Swagger documentation**
   → improves developer experience and API testing
